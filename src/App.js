@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Car from "./car/index.js";
+
+import Paper from "./paper/index.js";
 
 function App() {
+  const images = [
+    {
+      href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.028.jpg",
+      url: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.028.jpg",
+    },
+    {
+      href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0284.jpg",
+      url: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0284.jpg",
+    },
+    {
+      href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0287.jpg",
+      url: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0287.jpg",
+    },
+    {
+      href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0288.jpg",
+      url: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0288.jpg",
+    },
+    {
+      href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0283.jpg",
+      url: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0283.jpg",
+    },
+  ];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Car images={images} width="321.5px" height="455.5px" />
     </div>
   );
 }

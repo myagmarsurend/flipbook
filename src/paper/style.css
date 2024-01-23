@@ -1,0 +1,27 @@
+.paper-book {
+  position: relative;
+}
+.page-front {
+  position: absolute;
+}
+
+
+.pg-p0 {
+  z-index: 30
+}
+
+.pg-p1 {
+  z-index: 20
+}
+
+.pg-p2 {
+  z-index: 20
+}
+
+.pg-p3 {
+  z-index: 30
+}
+
+.pg-p4 {
+  z-index: 10
+}
