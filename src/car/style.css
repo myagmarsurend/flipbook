@@ -2,18 +2,13 @@
   box-sizing: border-box;
 }
 .book-section{
-  height: 100vh;
-  width: 100%;
   padding: 40px 0;
   text-align: center;
 }
 .book-section > .container{
-  height: 400px;
-  width: 500px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 2%;
   margin-bottom: 30px;
   perspective: 1200px;
 }
@@ -23,6 +18,7 @@
   width: 50%;
   transition: 0.7s ease-in-out;
   transform-style: preserve-3d;
+  border:1px solid black;
 }
 .book-section > .container > .right{
   right:0;
@@ -43,13 +39,9 @@
 }
 .right > figure.front{
   background-position: right;
-  border-radius: 0 10px 10px 0;
-  box-shadow: 2px 2px 15px -2px rgba(0,0,0,0.2);
 }
 .right > figure.back{
   background-position: left;
-  border-radius: 10px 0 0 10px;
-  box-shadow: -2px 2px 15px -2px rgba(0,0,0,0.2);
   transform: rotateY(180deg);
 }
 .flip{
@@ -63,7 +55,6 @@
   z-index: 10;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.1);
 }
 .book-section > button{
   border: 2px solid #ef9f00;
@@ -78,29 +69,15 @@
 .book-section > button:focus, .book-section > button:active{
   outline: none;
 }
-.book-section > p{
-  color: rgba(0,0,0,0.7);
-  font-family: calibri;
-  font-size: 24px;
-}
-.book-section > p > a{
-  text-decoration: none;
-  color: #ef9f00;
-}
+
 .book-section > button:hover{
   background-color: #ef9f00;
   color: #fff;
 }
-.front#cover, .back#back-cover{
-  background-color: #ffcb63;
-  font-family: calibri;
-  text-align: left;
-  padding: 0 30px;
-}
-.front#cover h1{
+
+.book-section > button:disabled{
+  background-color: #dfd9cf;
   color: #fff;
-}
-.front#cover p{
-  color: rgba(0,0,0,0.8);
-  font-size: 14px;
+  border-color: #dfd9cf;
+  cursor: unset;
 }
