@@ -5,6 +5,8 @@ import {
   RightOutlined,
   DoubleLeftOutlined,
   DoubleRightOutlined,
+  PauseOutlined,
+  CaretRightOutlined,
 } from "@ant-design/icons";
 import "./style.css";
 
@@ -20,9 +22,19 @@ class FlipBook extends React.Component {
       height: this.props.height,
       odd: 1,
       cover: true,
+      autoPlay: true,
     };
   }
 
+  startAutoPlay = () => {
+    if (this.state.currentIndex > 0) {
+      const button = document.getElementsByClassName("p-button-right")[0];
+      button.click();
+    } else {
+      const button = document.getElementsByClassName("p-button-home")[0];
+      button.click();
+    }
+  };
   componentDidMount() {
     let { images } = this.props;
     const { right } = this.state;
@@ -34,22 +46,21 @@ class FlipBook extends React.Component {
       this.setState({ odd: 1 });
     }
 
+    let mediaQuery = window.matchMedia("(max-width: 700px)");
+
     this.setState({
       currentIndex: right.length - 1,
       images: images.reverse(),
+      width: mediaQuery.matches ? 0 : this.props.width*2,
     });
 
     setTimeout(() => {
-      setInterval(() => {
-        if (this.state.currentIndex > 0) {
-          const button = document.getElementsByClassName("p-button-right")[0];
-          button.click();
-        } else {
-          const button = document.getElementsByClassName("p-button-home")[0];
-          button.click();
-        }
-      }, 8000);
+      this.intervalId = setInterval(this.startAutoPlay, 10000);
     }, 6000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   checkCover = () => {
@@ -63,7 +74,7 @@ class FlipBook extends React.Component {
     return count;
   };
 
-  turnRight = () => {
+  handleTurnRight = () => {
     const { z, currentIndex, right } = this.state;
 
     if (currentIndex >= 0) {
@@ -100,7 +111,7 @@ class FlipBook extends React.Component {
     }
   };
 
-  turnLeft = () => {
+  handleTurnLeft = () => {
     const { currentIndex, right } = this.state;
 
     if (currentIndex < right.length - 1) {
@@ -136,7 +147,7 @@ class FlipBook extends React.Component {
       container.style.transform = "translateX(-75%)";
     }
   };
-  turnHome = () => {
+  handleTurnHome = () => {
     const { right } = this.state;
 
     for (let i = 0; i < right.length; i++) {
@@ -152,7 +163,7 @@ class FlipBook extends React.Component {
     container.style.transform = "translateX(-75%)";
   };
 
-  turnEnd = () => {
+  handleTurnEnd = () => {
     const { right, odd } = this.state;
 
     if (odd === 1) {
@@ -183,6 +194,22 @@ class FlipBook extends React.Component {
     }
   };
 
+  handleAutoPlay = () => {
+    const { autoPlay } = this.state;
+
+    this.setState(prevState => ({
+      autoPlay: !prevState.autoPlay,
+    }));
+    if (!autoPlay) {
+      this.intervalId = setInterval(this.startAutoPlay, 8000);
+
+      console.log("🚀 ~ FlipBook ~ if:", autoPlay);
+    } else {
+      clearInterval(this.intervalId);
+      console.log("🚀 ~ FlipBook ~ else:", autoPlay);
+    }
+  };
+
   renderBookCovers = () => {
     const { images, right } = this.state;
     let imgArray = [];
@@ -192,10 +219,10 @@ class FlipBook extends React.Component {
         <div key={index} className="p-right">
           {images[index + 1] && (
             <a
-              href={images[index + 1].href}
+              // href={images[index + 1].href}
               className="p-front"
               style={{
-                backgroundImage: `url(${images[index + 1].url})`,
+                backgroundImage: `url(${images[index + 1].img})`,
                 backgroundRepeat: "no-repeat",
                 width: "100%",
                 height: "100%",
@@ -221,11 +248,11 @@ class FlipBook extends React.Component {
             </a>
           ) : (
             <a
-              href={images[index].href}
+              // href={images[index].href}
               className="p-back"
               id={index === images.length - 1 ? "cover" : ""}
               style={{
-                backgroundImage: `url(${images[index].url})`,
+                backgroundImage: `url(${images[index].img})`,
                 backgroundRepeat: "no-repeat",
                 width: "100%",
                 height: "100%",
@@ -246,48 +273,55 @@ class FlipBook extends React.Component {
       <div className="p-book-section">
         <div
           className="p-container"
+          // onClick={this.showModal}
           style={{
-            width: `${this.state.width}px`,
+            width: this.state.width !== 0 ? `${this.state.width}px` : "",
+            padding: this.state.width !== 0 ? "" : "2px 0",
             height: `${this.state.height}px`,
             transform: "translateX(-75%)",
           }}
         >
           {this.renderBookCovers()}
         </div>
-        <button
-        className="p-button-home"
-          onClick={this.turnHome}
-          disabled={this.state.currentIndex >= this.state.right.length - 1}
-        >
-          <DoubleLeftOutlined />
-        </button>
-        <button
-          onClick={this.turnLeft}
-          disabled={this.state.currentIndex >= this.state.right.length - 1}
-        >
-          <LeftOutlined />
-        </button>
-        <button
-          onClick={this.turnRight}
-          className="p-button-right"
-          disabled={
-            this.state.odd === 1
-              ? this.state.currentIndex === -1
-              : this.state.currentIndex === 0
-          }
-        >
-          <RightOutlined />
-        </button>
-        <button
-          onClick={this.turnEnd}
-          disabled={
-            this.state.odd === 1
-              ? this.state.currentIndex === -1
-              : this.state.currentIndex === 0
-          }
-        >
-          <DoubleRightOutlined />
-        </button>
+        <div className="p-button-container">
+          <button
+            className="p-button-home"
+            onClick={this.handleTurnHome}
+            disabled={this.state.currentIndex >= this.state.right.length - 1}
+          >
+            <DoubleLeftOutlined />
+          </button>
+          <button
+            onClick={this.handleTurnLeft}
+            disabled={this.state.currentIndex >= this.state.right.length - 1}
+          >
+            <LeftOutlined />
+          </button>
+          <button
+            onClick={this.handleTurnRight}
+            className="p-button-right"
+            disabled={
+              this.state.odd === 1
+                ? this.state.currentIndex === -1
+                : this.state.currentIndex === 0
+            }
+          >
+            <RightOutlined />
+          </button>
+          <button
+            onClick={this.handleTurnEnd}
+            disabled={
+              this.state.odd === 1
+                ? this.state.currentIndex === -1
+                : this.state.currentIndex === 0
+            }
+          >
+            <DoubleRightOutlined />
+          </button>
+          <button onClick={this.handleAutoPlay}>
+            {this.state.autoPlay ? <PauseOutlined /> : <CaretRightOutlined />}
+          </button>
+        </div>
       </div>
     );
   }
@@ -299,4 +333,4 @@ FlipBook.propTypes = {
   height: PropTypes.number.isRequired,
 };
 
-export default (FlipBook);
+export default FlipBook;

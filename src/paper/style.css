@@ -4,12 +4,14 @@
 .p-book-section{
   padding: 20px 0;
   text-align: center;
+  /* top: 50%;
+  left: 50%; */
 }
 .p-book-section > .p-container{
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   perspective: 1200px;
   transition-duration: 1s;
 }
@@ -28,7 +30,7 @@
   right:0;
   transform-origin: left;
 }
-.p-right > a.p-front, .p-right > a.p-back{
+.p-right > .p-front, .p-right > .p-back{
   margin: 0;
   height: 100%;
   width: 100%;
@@ -42,7 +44,7 @@
   overflow: hidden;
   background-position: center;
 }
-.p-right > a.p-back{
+.p-right > .p-back{
   transform: rotateY(180deg);
   z-index: 100;
 }
@@ -58,26 +60,31 @@
   width: 100%;
   height: 100%;
 }
-.p-book-section > button{
+.p-book-section button{
   border: 2px solid #ef9f00;
   background-color: transparent;
   color: #ef9f00;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  margin: 10px;
+  margin: 2px;
   transition: 0.3s ease-in-out;
   font-size: 25px;
 }
 
-.p-book-section > button:hover{
+.p-book-section button:hover{
   background-color: #ef9f00;
   color: #fff;
 }
 
-.p-book-section > button:disabled{
+.p-book-section button:disabled{
   background-color: #dfd9cf;
   color: #fff;
   border-color: #dfd9cf;
   cursor: unset;
+}
+.p-button-container {
+  display: flex;
+  justify-content: center;
+
 }
