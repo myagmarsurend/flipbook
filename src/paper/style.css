@@ -44,6 +44,17 @@
   overflow: hidden;
   background-position: center;
 }
+
+.p-right > .p-front img, .p-right > .p-back img{
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+
+.p-right .p-large-img {
+  position: fixed;
+  z-index: 1000;
+}
+
 .p-right > .p-back{
   transform: rotateY(180deg);
   z-index: 100;

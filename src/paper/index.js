@@ -8,7 +8,9 @@ import {
   PauseOutlined,
   CaretRightOutlined,
 } from "@ant-design/icons";
+import ReactImageMagnify from "react-image-magnify";
 import "./style.css";
+
 
 class FlipBook extends React.Component {
   constructor(props) {
@@ -51,7 +53,7 @@ class FlipBook extends React.Component {
     this.setState({
       currentIndex: right.length - 1,
       images: images.reverse(),
-      width: mediaQuery.matches ? 0 : this.props.width*2,
+      width: mediaQuery.matches ? 0 : this.props.width * 2,
     });
 
     setTimeout(() => {
@@ -78,7 +80,7 @@ class FlipBook extends React.Component {
     const { z, currentIndex, right } = this.state;
 
     if (currentIndex >= 0) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         currentIndex: prevState.currentIndex - 1,
       }));
     } else {
@@ -95,7 +97,7 @@ class FlipBook extends React.Component {
 
     if (currentIndex >= 0) {
       right[currentIndex].classList.add("flip");
-      this.setState(prevState => ({ z: prevState.z + 1 }));
+      this.setState((prevState) => ({ z: prevState.z + 1 }));
 
       setTimeout(() => {
         right[currentIndex].style.zIndex = z;
@@ -115,7 +117,7 @@ class FlipBook extends React.Component {
     const { currentIndex, right } = this.state;
 
     if (currentIndex < right.length - 1) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         currentIndex: prevState.currentIndex + 1,
       }));
     } else {
@@ -197,7 +199,7 @@ class FlipBook extends React.Component {
   handleAutoPlay = () => {
     const { autoPlay } = this.state;
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       autoPlay: !prevState.autoPlay,
     }));
     if (!autoPlay) {
@@ -212,6 +214,7 @@ class FlipBook extends React.Component {
 
   renderBookCovers = () => {
     const { images, right } = this.state;
+    let { width, height } = this.props;
     let imgArray = [];
 
     for (let index = 0; index < images.length; index += 2) {
@@ -221,15 +224,39 @@ class FlipBook extends React.Component {
             <a
               // href={images[index + 1].href}
               className="p-front"
-              style={{
-                backgroundImage: `url(${images[index + 1].img})`,
-                backgroundRepeat: "no-repeat",
-                width: "100%",
-                height: "100%",
-                backgroundSize: "contain",
-              }}
+              // style={{
+              //   backgroundImage: `url(${images[index + 1].img})`,
+              //   backgroundRepeat: "no-repeat",
+              //   width: "100%",
+              //   height: "100%",
+              //   backgroundSize: "contain",
+              // }}
             >
-              {" "}
+              {/* <img src={images[index + 1].img} alt="1" /> */}
+              <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    alt: "image",
+                    src: `${images[index + 1].img}`,
+                    isFluidWidth: true,
+                  },
+                  largeImage: {
+                    alt: "image",
+                    src: `${images[index + 1].img}`,
+                    width: width * 1.5,
+                    height: height * 1.5,
+                  },
+                  enlargedImageContainerStyle: {
+                    zIndex: "1500",
+                  },
+                  enlargedImagePosition: "beside",
+                  enlargedImageContainerDimensions: {
+                    width: "100%",
+                    height: "100%",
+                  },
+                  enlargedImageClassName: "p-large-img",
+                }}
+              />
             </a>
           )}
 
@@ -250,19 +277,41 @@ class FlipBook extends React.Component {
             <a
               // href={images[index].href}
               className="p-back"
-              id={index === images.length - 1 ? "cover" : ""}
-              style={{
-                backgroundImage: `url(${images[index].img})`,
-                backgroundRepeat: "no-repeat",
-                width: "100%",
-                height: "100%",
-                backgroundSize: "contain",
-              }}
+              // style={{
+              //   backgroundImage: `url(${images[index].img})`,
+              //   backgroundRepeat: "no-repeat",
+              //   width: "100%",
+              //   height: "100%",
+              //   backgroundSize: "contain",
+              // }}
             >
-              {" "}
+              <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    alt: "image",
+                    src: `${images[index].img}`,
+                    isFluidWidth: true,
+                  },
+                  largeImage: {
+                    alt: "image",
+                    src: `${images[index].img}`,
+                    width: width * 1.5,
+                    height: height * 1.5,
+                  },
+                  enlargedImageContainerStyle: {
+                    zIndex: "1501",
+                  },
+                  enlargedImagePosition: "beside",
+                  enlargedImageContainerDimensions: {
+                    width: "100%",
+                    height: "100%",
+                  },
+                  enlargedImageClassName: "p-large-img",
+                }}
+              />
             </a>
           )}
-        </div>,
+        </div>
       );
     }
     return imgArray;
