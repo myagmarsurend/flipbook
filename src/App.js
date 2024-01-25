@@ -1,5 +1,5 @@
 import "./App.css";
-import Car from "./car/index.js";
+import Car from "./paper/index.js";
 
 import Paper from "./paper/index.js";
 
@@ -7,29 +7,29 @@ function App() {
   const images = [
     {
       href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.028.jpg",
-      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/1.jpg",
+      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/1.jpg?raw=true",
     },
     {
       href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0284.jpg",
-      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/2.jpg",
+      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/2.jpg?raw=true",
     },
     {
       href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0287.jpg",
-      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/3.jpg",
+      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/3.jpg?raw=true",
     },
     {
       href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0288.jpg",
-      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/4.jpg",
+      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/4.jpg?raw=true",
     },
     {
       href: "https://e-mart.mn/media/emartstore/content/LEAFLET/2024/24-2/issue.0283.jpg",
-      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/5.jpg",
-    },
+      url: "https://github.com/myagmarsurend/flipbook/blob/main/src/img/5.jpg?raw=true",
+    }
   ];
 
   return (
     <div className="App">
-      <Car images={images} width="400" height="500" />
+      <Car images={images} width="620" height="640" />
     </div>
   );
 }
